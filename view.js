@@ -5,14 +5,34 @@ app.viewModel = Backbone.View.extend({
 	model : new app.detailsModel(),
 	tagName : 'tr',
 	events: {
-        "click .edit": "editModel"
+        "click .edit" : "editModel",
+        "click .update" : "updateModel"
 	},
 	editModel : function(){
 		
 		var nodes  = event.target.parentElement.parentElement.children;
-		_.each(nodes,function(index){
-			console.log('this ',nodes);
-			nodes[index].innerHTML = "<input />";
+		_.each(nodes,function(node,index){
+			if(index==4){
+				node.children[0].removeAttribute("class");
+				node.children[0].setAttribute("class","update btn btn-primary");
+				node.children[0].innerText = "Update";
+				return;
+			}
+			
+				node.innerHTML = "<input />";
+			
+			
+		});					
+	},
+	updateModel : function(){
+		var nodes = event.target.parentElement.parentElement.children;
+		_.each(nodes,function(node,index){
+			if(index==4){
+				node.children[0].removeAttribute("class");
+				node.children[0].setAttribute("class","edit btn btn-info");
+				node.children[0].innerText = "Edit";
+				return;
+			}
 		});
 	},
 	initialize : function(){
