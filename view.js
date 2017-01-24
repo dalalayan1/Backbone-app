@@ -6,34 +6,56 @@ app.viewModel = Backbone.View.extend({
 	tagName : 'tr',
 	events: {
         "click .edit" : "editModel",
-        "click .update" : "updateModel"
+        "click .update" : "updateModel",
+        "click .delete" : "deleteModel",
+        "click .cancel" : "cancelUpdateModel"
 	},
 	editModel : function(){
-		
-		var nodes  = event.target.parentElement.parentElement.children;
-		_.each(nodes,function(node,index){
-			if(index==4){
-				node.children[0].removeAttribute("class");
-				node.children[0].setAttribute("class","update btn btn-primary");
-				node.children[0].innerText = "Update";
-				return;
-			}
-			
-				node.innerHTML = "<input />";
-			
-			
-		});					
+		this.$('.edit').hide();
+		this.$('.delete').hide();
+		this.$('.update').show();
+		this.$('.cancel').show();
+		var name = this.$('.name').html();
+		var role = this.$('.role').html();
+		var contact = this.$('.contact').html();
+		var addr = this.$('.addr').html();
+		this.$('.name').html("<input class = 'update-name' value = '"+name+"'/>");
+		this.$('.role').html("<input class = 'update-role' value = '"+role+"'/>");
+		this.$('.contact').html("<input class = 'update-contact' value = '"+contact+"'/>");
+		this.$('.addr').html("<input class = 'update-addr' value = '"+addr+"'/>");	
+		this.name = name;
+		this.role = role;
+		this.contact = contact;
+		this.addr = addr;		
 	},
 	updateModel : function(){
-		var nodes = event.target.parentElement.parentElement.children;
-		_.each(nodes,function(node,index){
-			if(index==4){
-				node.children[0].removeAttribute("class");
-				node.children[0].setAttribute("class","edit btn btn-info");
-				node.children[0].innerText = "Edit";
-				return;
-			}
-		});
+		this.$('.edit').show();
+		this.$('.delete').show();
+		this.$('.update').hide();
+		this.$('.cancel').hide();
+		var updateName = this.$('.update-name').val();
+		var updateRole = this.$('.update-role').val();
+		var updateContact = this.$('.update-contact').val();
+		var updateAddr = this.$('.update-addr').val();
+		this.$('.name').html(updateName);
+		this.$('.role').html(updateRole);
+		this.$('.contact').html(updateContact);
+		this.$('.addr').html(updateAddr);
+		
+	},
+	deleteModel : function(){
+		$(event.target).closest('tr').remove();
+		this.model.destroy();
+	},
+	cancelUpdateModel : function(){
+		this.$('.edit').show();
+		this.$('.delete').show();
+		this.$('.update').hide();
+		this.$('.cancel').hide();
+		this.$('.name').html(this.name);
+		this.$('.role').html(this.role);
+		this.$('.contact').html(this.contact);
+		this.$('.addr').html(this.addr);
 	},
 	initialize : function(){
 		this.template = _.template($('#people-details-template').html());
