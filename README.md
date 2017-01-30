@@ -12,3 +12,8 @@ Tech-stack :
 	- MongoDB
 	- Express
 
+Commands :
+ 1- npm i
+ 2- cd app-root && bower i
+ 3- node server
+
