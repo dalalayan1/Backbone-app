@@ -15,10 +15,12 @@ app.viewModel = Backbone.View.extend({
 		this.$('.delete').hide();
 		this.$('.update').show();
 		this.$('.cancel').show();
+
 		var name = this.$('.name').html();
 		var role = this.$('.role').html();
 		var contact = this.$('.contact').html();
 		var addr = this.$('.addr').html();
+
 		this.$('.name').html("<input class = 'update-name' value = '"+name+"'/>");
 		this.$('.role').html("<input class = 'update-role' value = '"+role+"'/>");
 		this.$('.contact').html("<input class = 'update-contact' value = '"+contact+"'/>");
@@ -33,29 +35,23 @@ app.viewModel = Backbone.View.extend({
 		this.$('.delete').show();
 		this.$('.update').hide();
 		this.$('.cancel').hide();
+
 		var updateName = this.$('.update-name').val();
 		var updateRole = this.$('.update-role').val();
 		var updateContact = this.$('.update-contact').val();
 		var updateAddr = this.$('.update-addr').val();
-		this.$('.name').html(updateName);
-		this.$('.role').html(updateRole);
-		this.$('.contact').html(updateContact);
-		this.$('.addr').html(updateAddr);
+
+		this.model.set('name',updateName);
+		this.model.set('role',updateRole);
+		this.model.set('contact',parseInt(updateContact));
+		this.model.set('addr',updateAddr);
 		
 	},
 	deleteModel : function(){
-		$(event.target).closest('tr').remove();
 		this.model.destroy();
 	},
 	cancelUpdateModel : function(){
-		this.$('.edit').show();
-		this.$('.delete').show();
-		this.$('.update').hide();
-		this.$('.cancel').hide();
-		this.$('.name').html(this.name);
-		this.$('.role').html(this.role);
-		this.$('.contact').html(this.contact);
-		this.$('.addr').html(this.addr);
+		this.render();
 	},
 	initialize : function(){
 		this.template = _.template($('#people-details-template').html());
@@ -73,6 +69,8 @@ app.viewCollection = Backbone.View.extend({
 	el : $('.people-details'),
 	initialize : function(){
 		this.model.on('add',this.render,this);
+		this.model.on('change',this.render,this);
+		this.model.on('remove',this.render,this);
 	},
 	render : function(){
 		this.$el.html('');
