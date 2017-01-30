@@ -4,16 +4,16 @@ A simple app using the very basics of backbone to showcase models and collection
 **Entries are added & fetched from mongoDB server.
 
 Tech-stack :
-	- Backbone
-	- Underscore
-	- jQuery
-	- Bootstrap
-	- Mongoose 
-	- MongoDB
-	- Express
+	-Backbone
+	-Underscore
+	-jQuery
+	-Bootstrap
+	-Mongoose 
+	-MongoDB
+	-Express
 
 Commands :
- 1- npm i
- 2- cd app-root && bower i
- 3- node server
+ 1-npm i
+ 2-cd app-root && bower i
+ 3-node server
 
