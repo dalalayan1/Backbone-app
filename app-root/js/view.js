@@ -1,5 +1,7 @@
 var app = app || {};
 
+Backbone.Model.prototype.idAttribute = '_id'
+
 //view for a model
 app.viewModel = Backbone.View.extend({
 	model : new app.detailsModel(),
@@ -48,7 +50,14 @@ app.viewModel = Backbone.View.extend({
 		
 	},
 	deleteModel : function(){
-		this.model.destroy();
+		this.model.destroy({
+			success : function(response){
+				console.log('Successfully deleted data with _id : ',response.toJSON()._id);
+			},
+			failure : function(){
+				console.log('Failed to delete data!!');
+			}
+		});
 	},
 	cancelUpdateModel : function(){
 		this.render();
@@ -74,7 +83,7 @@ app.viewCollection = Backbone.View.extend({
 		this.model.fetch({
 			success : function(res){
 				_.each(res.toJSON(),function(entry){
-					console.log('successfully got entry with name : ',entry.name);
+					console.log('successfully got entry with _id : ',entry._id);
 				})
 			},
 			error : function(){

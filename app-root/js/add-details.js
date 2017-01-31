@@ -17,7 +17,7 @@ $(document).ready(function(){
 		collection1.add(newModel);
 		newModel.save(null,{
 			success : function(res){
-				console.log('Successfully saved blog with name - ',res.toJSON().name);
+				console.log('Successfully saved blog with _id - ',res.toJSON()._id);
 			},
 			error : function(){
 				console.log('Failed to save data!!');

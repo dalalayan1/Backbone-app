@@ -36,7 +36,7 @@ app.get('/api/infos',function(req,res){
 	Info.find(function(err,entries){
 		res.send(entries);
 		entries.forEach(function(entry){
-			console.log('request recived for name - ',entry.name);
+			console.log('request recived for _id - ',entry._id);
 		});
 	});
 });
@@ -45,6 +45,15 @@ app.post('/api/infos',function(req,res){
 	console.log('post req - ',req.body);
 	var newEntry = new Info(req.body);
 	newEntry.save();
+});
+
+app.delete('/api/infos/:id',function(req,res){
+	console.log('received a DELETE request for data with _id : ',req.params.id);
+	var infos = new Info();
+	console.log('infos ',infos);
+	Info.remove({ id : req.params.id },function(err){
+		res.send({ _id : req.params.id});
+	});
 });
 
 var port = 3001;
