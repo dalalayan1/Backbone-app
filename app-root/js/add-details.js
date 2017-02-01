@@ -6,7 +6,7 @@ $(document).ready(function(){
 	add.on('click',addModel);
 	function addModel(){
 
-		newModel = new app.detailsModel({
+		var newModel = new app.detailsModel({
 			name : inputs[0].value,
 			role : inputs[1].value,
 			contact : parseInt(inputs[2].value),
@@ -14,7 +14,9 @@ $(document).ready(function(){
 		});
 		inputs.val('');
 		//console.log('model added ',newModel.toJSON());
-		collection1.add(newModel);
+		//newCollection = new app.detailsCollection([]);
+		app.newCollection.add(newModel);
+		console.log('collection is ',app.newCollection);
 		newModel.save(null,{
 			success : function(res){
 				console.log('Successfully saved blog with _id - ',res.toJSON()._id);
@@ -23,7 +25,8 @@ $(document).ready(function(){
 				console.log('Failed to save data!!');
 			}
 		});
-		//console.log('collection ',collection1.toJSON());
+
+		
 	}
 
 });

@@ -1,3 +1,4 @@
+var app = app || {};
 //instantiate a model
 /*var model1 = new app.detailsModel({
 	name : "ayan",
@@ -16,4 +17,4 @@ var model2 = new app.detailsModel({
 
 
 //instantiate a collection
-var collection1 = new app.detailsCollection([]);
+app.newCollection = new app.detailsCollection([]);

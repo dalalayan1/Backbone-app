@@ -6,6 +6,7 @@ Backbone.Model.prototype.idAttribute = '_id'
 app.viewModel = Backbone.View.extend({
 	model : new app.detailsModel(),
 	tagName : 'tr',
+	className : 'detail-row',
 	events: {
         "click .edit" : "editModel",
         "click .update" : "updateModel",
@@ -83,8 +84,27 @@ app.viewModel = Backbone.View.extend({
 
 //view for a collection
 app.viewCollection = Backbone.View.extend({
-	model : collection1,
+	model : app.newCollection,
 	el : $('.people-details'),
+	events: {
+        "click .edit" : "editModel",
+        "click .update" : "updateModel",
+        "click .delete" : "deleteModel",
+        "click .cancel" : "cancelUpdateModel",
+        "mouseover .detail-row" : "handleMouseover",
+        "mouseout .detail-row" : "handleMouseout"
+	},
+	handleMouseover : function(){
+		if(this.$(event.target).parent().hasClass('detail-row')){
+			this.$(event.target).parent().addClass('hover-effect');
+		}
+		
+	},
+	handleMouseout : function(){
+		if(this.$(event.target).parent().hasClass('detail-row')){
+			this.$(event.target).parent().removeClass('hover-effect');
+		}
+	},
 	initialize : function(){
 		this.model.on('add',this.render,this);
 		this.model.on('change',this.render,this);
