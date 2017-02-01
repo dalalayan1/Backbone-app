@@ -13,9 +13,9 @@ var peopleSchema = new schema({
 	addr : String
 });
 
-mongoose.model('peopleinfo',peopleSchema);
+mongoose.model('peopleinfos',peopleSchema);
 
-var Info = mongoose.model('peopleinfo');
+var Info = mongoose.model('peopleinfos');
 
 //add an entry to the db
 /*var entry = new Info({
@@ -47,11 +47,18 @@ app.post('/api/infos',function(req,res){
 	newEntry.save();
 });
 
+app.put('/api/infos/:id',function(req,res){
+	console.log('received a PUT request for data with _id : ',req.body);
+	
+	Info.update({_id : req.params.id},req.body,function(err){
+		res.send({_id : req.params.id});
+	});
+});
+
 app.delete('/api/infos/:id',function(req,res){
 	console.log('received a DELETE request for data with _id : ',req.params.id);
-	var infos = new Info();
-	console.log('infos ',infos);
-	Info.remove({ id : req.params.id },function(err){
+
+	Info.remove({ _id : req.params.id },function(err){
 		res.send({ _id : req.params.id});
 	});
 });

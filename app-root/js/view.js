@@ -47,6 +47,15 @@ app.viewModel = Backbone.View.extend({
 		this.model.set('role',updateRole);
 		this.model.set('contact',parseInt(updateContact));
 		this.model.set('addr',updateAddr);
+
+		this.model.save(null,{
+			success : function(res){
+				console.log('Successfully updated data with _id : ',res.toJSON()._id);
+			},
+			error : function(){
+				console.log('Failed to update data!!');
+			}
+		});
 		
 	},
 	deleteModel : function(){
